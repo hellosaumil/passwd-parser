@@ -4,7 +4,8 @@
 
 
 ## Name 
-passwd-parser - A toy utility to parse /etc/passwd in unix machines and provide corresponding group from /etc/group
+passwd-parser - A toy utility to parse /etc/passwd in unix machines and provide corresponding uid, full_name and groups from /etc/group
+
 
 ## Usage
 Write in Terminal as follows:
@@ -24,6 +25,32 @@ Write in Terminal as follows:
 ``` shell
 python passwd-parser.py
 python passwd-parser.py /etc/passwd /etc/group
+```
+
+## Sample Object
+``` shell
+{
+  "ubuntu": {
+          "uid": "1000",
+           "full_name": "Ubuntu", 
+           "groups": [
+                      "adm",
+                      "cdrom",
+
+                      "docker",
+                      "netdev",
+                      "plugdev",
+                      "floppy",
+                      "audio",
+                      "sudo",
+                      "video"] 
+            },
+            
+     "man": {
+          "uid": "6",
+          "full_name": "man",
+          "groups": []
+}
 ```
 
 ## Author
