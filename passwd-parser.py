@@ -16,9 +16,11 @@ class PasswdParser:
     """
 
     def __init__(self, sys_argv):
-        """"AudioFrames(filename, adv_ms, len_ms)
-        Create a stream of audio frames where each is in len_ms milliseconds long
-        and frames are advanced by adv_ms.
+        """" 
+        The constructor for PasswdParser class. 
+        
+        Params: 
+            sys_argv : passwd_path and group_path
         """
 
         self.passwd_path, self.group_path = '/etc/passwd', '/etc/group'
@@ -40,6 +42,16 @@ class PasswdParser:
 
 
     def filesCheck(self, passwd_path, group_path):
+        """ 
+        Class method to check if files passwd and group files exists
+  
+        Params: 
+           passwd_path (str): path to passwd file
+           group_path (str): path to group file
+        
+        Return:
+            True (bool): Returns True if both files exists or else Raises Exception(s)
+        """
 
         passwd_path_flag = os.path.isfile(passwd_path)
         group_path_flag = os.path.isfile(group_path)
@@ -54,6 +66,15 @@ class PasswdParser:
 
 
     def readFileLines(self, file_path):
+        """ 
+        Class method to readlines from a file
+  
+        Params: 
+           file_path (str): path to a file to read
+           
+        Return:
+            fileLines (generator): all lines in file_path 
+        """
         fileLines = []
 
         with open(file_path, 'r') as infile:
@@ -67,6 +88,12 @@ class PasswdParser:
 
 
     def beginParsing(self):
+        """ 
+        Class method to begin Parsing both passwd and group files
+        
+        Return:
+            Prints JSON object of users
+        """
 
         group_file_data = self.readFileLines(self.group_path)
         passwd_file_data = self.readFileLines(self.passwd_path)
@@ -78,6 +105,16 @@ class PasswdParser:
 
 
     def parseGroupFile(self, group_file_data):
+        """ 
+        Class method to parse group file
+  
+        Params: 
+           group_file_data (list): lines of group file
+           
+        Return:
+            users_grp_map (dict): hash map of users to its primary group
+            grp_dict (dict): hash map of groups and its properties
+        """
 
         if len(group_file_data) == 0:
             raise Exception("\n\t**** Malformed Groups File!\n")
@@ -108,6 +145,17 @@ class PasswdParser:
                 return users_grp_map, grp_dict
 
     def parsePasswdFile(self, passwd_file_data, users_to_primary_group_map, group_dict):
+        """ 
+        Class method to parse group file
+  
+        Params: 
+           passwd_file_data (list): lines of group file
+           users_to_primary_group_map (dict): hash map of users to its primary group
+           group_dict (dict): hash map of groups and its properties
+           
+        Return:
+            pwd_dict (dict): hash map of users and its properties
+        """
 
         if len(passwd_file_data) == 0:
             raise Exception("\n\t**** Malformed Passwd File!\n")
@@ -142,6 +190,10 @@ class PasswdParser:
             return pwd_dict
 
     def showHelp(self):
+        """ 
+        Class method to display file usage
+        """
+        
         print (" *********** \n")
         print (" Usage: ")
 
